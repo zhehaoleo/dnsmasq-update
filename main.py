@@ -13,7 +13,7 @@ enhancedRules = [
 ]
 
 prefix = ['HOST', 'HOST-SUFFIX']
-dest = '223.5.5.5'
+dest = '114.114.114.114'
 
 def process_and_save_rules(rules_url, output_file):
     """
