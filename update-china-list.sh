@@ -18,16 +18,18 @@ curl -x http://127.0.0.1:7890 -o "${CONFIG_PATH}/bogus-nxdomain.china.conf" http
 
 wait
 
-# linux 用这个
-sed -i "s|114.114.114.114|${CHINA_DNS_SERVER}|g" "${CONFIG_PATH}/accelerated-domains.china.conf"
-sed -i "s|114.114.114.114|${CHINA_DNS_SERVER}|g" "${CONFIG_PATH}/apple.china.conf"
-sed -i "s|114.114.114.114|${CHINA_DNS_SERVER}|g" "${CONFIG_PATH}/google.china.conf"
-
-# macos 用这个，当你使用 -i 选项时，必须指定一个扩展名来表示备份文件。如果你不希望创建备份文件，可以指定一个空字符串 ''。
-#sed -i '' "s|114.114.114.114|${CHINA_DNS_SERVER}|g" "${CONFIG_PATH}/accelerated-domains.china.conf"
-#sed -i '' "s|114.114.114.114|${CHINA_DNS_SERVER}|g" "${CONFIG_PATH}/apple.china.conf"
-#sed -i '' "s|114.114.114.114|${CHINA_DNS_SERVER}|g" "${CONFIG_PATH}/google.china.conf"
-
+# 判断操作系统类型
+if [[ "$(uname)" == "Darwin" ]]; then
+    # macOS 上使用 -i '' 语法
+    sed -i '' "s|114.114.114.114|${CHINA_DNS_SERVER}|g" "${CONFIG_PATH}/accelerated-domains.china.conf"
+    sed -i '' "s|114.114.114.114|${CHINA_DNS_SERVER}|g" "${CONFIG_PATH}/apple.china.conf"
+    sed -i '' "s|114.114.114.114|${CHINA_DNS_SERVER}|g" "${CONFIG_PATH}/google.china.conf"
+else
+    # Linux 或其他系统上使用 -i 语法
+    sed -i "s|114.114.114.114|${CHINA_DNS_SERVER}|g" "${CONFIG_PATH}/accelerated-domains.china.conf"
+    sed -i "s|114.114.114.114|${CHINA_DNS_SERVER}|g" "${CONFIG_PATH}/apple.china.conf"
+    sed -i "s|114.114.114.114|${CHINA_DNS_SERVER}|g" "${CONFIG_PATH}/google.china.conf"
+fi
 
 cd "${ROOT_PATH}/dnsmasq-update" || echo "not found path ${ROOT_PATH}/dnsmasq-update"
 source .venv/bin/activate
