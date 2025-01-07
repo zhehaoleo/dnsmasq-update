@@ -8,7 +8,7 @@ source .env
 
 DOCKER_COMPOSE_PATH=${ENV_PROJECT_DOCKER_COMPOSE_PATH}
 ROOT_PATH="${DOCKER_COMPOSE_PATH}/dnsmasq"
-CONFIG_PATH=${ROOT_PATH}/dnsmasq.d
+CONFIG_PATH="${ROOT_PATH}/dnsmasq.d"
 CHINA_DNS_SERVER=${ENV_CHINA_DNS_SERVER}
 
 curl -x http://127.0.0.1:7890 -o "${CONFIG_PATH}/accelerated-domains.china.conf" https://raw.githubusercontent.com/felixonmars/dnsmasq-china-list/master/accelerated-domains.china.conf
