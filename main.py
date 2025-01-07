@@ -1,4 +1,12 @@
 import requests
+from dotenv import load_dotenv
+import os
+
+# 加载 .env 文件
+load_dotenv()
+
+# 获取环境变量
+ENV_CHINA_DNS_SERVER = os.getenv('ENV_CHINA_DNS_SERVER', '114.114.114.114')
 
 # Enhanced rules列表
 enhancedRules = [
@@ -13,7 +21,7 @@ enhancedRules = [
 ]
 
 prefix = ['HOST', 'HOST-SUFFIX']
-dest = '114.114.114.114'
+dest = ENV_CHINA_DNS_SERVER
 
 def process_and_save_rules(rules_url, output_file):
     """
