@@ -1,4 +1,9 @@
 #!/bin/bash
+
+git pull --rebase origin main
+
+wait
+
 source .env
 
 DOCKER_COMPOSE_PATH=${ENV_PROJECT_DOCKER_COMPOSE_PATH}
