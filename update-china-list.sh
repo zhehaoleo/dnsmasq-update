@@ -39,6 +39,11 @@ mv wechat.conf "${CONFIG_PATH}"
 mv shadowrocket-china.conf "${CONFIG_PATH}"
 
 cd "${DOCKER_COMPOSE_PATH}" || echo "not found path ${DOCKER_COMPOSE_PATH}"
-docker compose down
-docker compose up -d
+# 判断变量 DOCKER_PATH 是否存在
+if [ -z "${DOCKER_PATH}" ]; then
+  # 如果 DOCKER_PATH 没有定义，使用默认的 docker
+  DOCKER_PATH="docker"
+fi
+${DOCKER_PATH} compose down
+${DOCKER_PATH} compose up -d
 echo "====== update success ========="
