@@ -11,10 +11,12 @@ ROOT_PATH="${DOCKER_COMPOSE_PATH}/dnsmasq"
 CONFIG_PATH="${ROOT_PATH}/dnsmasq.d"
 CHINA_DNS_SERVER=${ENV_CHINA_DNS_SERVER}
 
-curl -x http://127.0.0.1:7890 -o "${CONFIG_PATH}/accelerated-domains.china.conf" https://raw.githubusercontent.com/felixonmars/dnsmasq-china-list/master/accelerated-domains.china.conf
+curl -x http://127.0.0.1:7890 -s https://raw.githubusercontent.com/felixonmars/dnsmasq-china-list/master/accelerated-domains.china.conf | pcregrep -v "[\x80-\xFF]" | tee "${CONFIG_PATH}/accelerated-domains.china.conf" > /dev/null
 curl -x http://127.0.0.1:7890 -o "${CONFIG_PATH}/google.china.conf" https://raw.githubusercontent.com/felixonmars/dnsmasq-china-list/master/google.china.conf
 curl -x http://127.0.0.1:7890 -o "${CONFIG_PATH}/apple.china.conf" https://raw.githubusercontent.com/felixonmars/dnsmasq-china-list/master/apple.china.conf
 curl -x http://127.0.0.1:7890 -o "${CONFIG_PATH}/bogus-nxdomain.china.conf" https://raw.githubusercontent.com/felixonmars/dnsmasq-china-list/master/bogus-nxdomain.china.conf
+
+#curl -x http://127.0.0.1:7890 -o "${CONFIG_PATH}/accelerated-domains.china.conf" https://raw.githubusercontent.com/felixonmars/dnsmasq-china-list/master/accelerated-domains.china.conf
 
 wait
 
